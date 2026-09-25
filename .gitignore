@@ -1,4 +1,71 @@
-*.pyc
-/__pycache__/*.pyc
-*.vscode
-*.DS_Store
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python packaging and test output
+/build/
+/dist/
+*.egg-info/
+.eggs/
+.coverage
+.coverage.*
+/htmlcov/
+/coverage.xml
+.tox/
+.nox/
+
+# Odoo runtime data (root only; keep addon data/ directories tracked)
+/.local/share/Odoo/
+/filestore/
+/sessions/
+/odoo-data/
+/data-dir/
+
+# Local Odoo configuration and environment secrets
+/odoo.conf
+/odoo-server.conf
+/config/odoo.conf
+/config/odoo-server.conf
+.odoorc
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Logs and local database backups
+*.log
+*.log.*
+/logs/
+/backups/
+/dumps/
+
+# Frontend dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local IDE settings
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
