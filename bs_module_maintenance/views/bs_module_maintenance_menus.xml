@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="ir_module_module_menu_upgrade"
+        action="ir_module_module_action_upgrade"
+        parent="base.menu_management"
+        sequence="990"/>
+
+    <menuitem id="ir_module_action_log_menu"
+        action="ir_module_action_log_action"
+        parent="base.menu_management"
+        sequence="999"/>
+
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_module_filter" model="ir.ui.view">
+        <field name="name">ir.module.module.list.select.inherit.module.maintenance</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.view_module_filter"/>
+        <field name="arch" type="xml">
+            <filter name="not_installed" position="after">
+                <separator/>
+                <filter name="need_upgrade" string="Need Upgrade" domain="[('upgrade_status', '=', 'outdated')]"/>
+                <filter name="missing_on_disk" string="Missing on Disk" domain="[('upgrade_status', '=', 'missing')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="module_view_kanban" model="ir.ui.view">
+        <field name="name">Apps Kanban inherit module maintenance</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.module_view_kanban"/>
+        <field name="arch" type="xml">
+            <field name="application" position="after">
+                <field name="upgrade_status"/>
+            </field>
+            <xpath expr="//t[@t-name='card']//footer" position="before">
+                <div t-if="record.upgrade_status.raw_value" class="o_bs_module_maintenance_status small text-warning">
+                    <field name="upgrade_status"/>
+                    <span t-if="record.upgrade_status.raw_value != 'missing'">:
+                        <field name="latest_version"/> -&gt; <field name="installed_version"/>
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ir_module_module_view_list_upgrade" model="ir.ui.view">
+        <field name="name">ir.module.module.list.upgrade</field>
+        <field name="model">ir.module.module</field>
+        <field name="arch" type="xml">
+            <list string="Need Upgrade" create="false">
+                <header>
+                    <button name="button_immediate_upgrade" type="object" string="Upgrade" groups="base.group_system"/>
+                </header>
+                <field name="shortdesc"/>
+                <field name="name"/>
+                <field name="latest_version" string="Database Version"/>
+                <field name="installed_version" string="Disk Version" invisible="upgrade_status == 'missing'"/>
+                <field name="upgrade_status"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="ir_module_module_action_upgrade" model="ir.actions.act_window">
+        <field name="name">Need Upgrade</field>
+        <field name="res_model">ir.module.module</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="ir_module_module_view_list_upgrade"/>
+        <field name="domain">[('upgrade_status', '!=', False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">All installed modules match the code on disk</p>
+            <p>Modules show up here when their manifest version on disk differs from the
+                version in the database, or when their code is missing from the addons path.
+                The disk version is read when the server starts.</p>
+        </field>
+    </record>
+
+</odoo>

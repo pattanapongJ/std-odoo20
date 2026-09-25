@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+ir_module_action_log_access_system,ir.module.action.log.access.system,ir.module.action.log,base.group_system,r,
+ir_module_action_log_line_access_system,ir.module.action.log.line.access.system,ir.module.action.log.line,base.group_system,r,
